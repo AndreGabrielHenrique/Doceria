@@ -98,7 +98,7 @@ main p
     margin-bottom: 30px;
 }
 
-#lermais, #enviar
+#lermais, .formulario button
 {
     font-size: medium;
     color: white;
@@ -108,14 +108,14 @@ main p
     cursor: pointer;
 }
 
-#lermais:active, #enviar:active
+#lermais:active, .formulario button:active
 {
     background-color: white;
     color: #006599;
     border: 1px solid #006599;
 }
 
-#enviar
+.formulario button
 {
     padding: 19px 72px;
     font-size: large;
@@ -151,8 +151,14 @@ section.bemvindo div aside
     font-size: large;
 }
 
-#naodisponivel, .errado{
+#naodisponivel, .errado
+{
     color: red;
+}
+
+.errado
+{
+    line-height: 0;
 }
 
 .correto
