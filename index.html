@@ -88,12 +88,12 @@
 
         <section class="contato">
             <h4><a id="contato">Entre em contato</a></h4>
-            <form id="formulario" method="post">
+            <form name="formulario" id="formulario" method="post">
                 <input type="text" placeholder="Nome" class="nome" name="nome" id="nome" autocomplete="off" required>
                 <input type="email" placeholder="E-mail" class="email" name="email" id="email" autocomplete="off" required>
                 <textarea placeholder="Escreva sua mensagem..." class="mensagem" name="mensagem" id="mensagem" rows="8" autocomplete="off" required></textarea>
-                <button type="submit" id="enviar" onclick="obrigado()">Enviar</button>
-                <div id="agradecimento"></div>
+                <button type="submit" id="enviar" onclick="aviso()">Enviar</button>
+                <div id="enviado"></div>
             </form>
         </section>
 

@@ -145,15 +145,19 @@ section.bemvindo div aside
     margin-left: 40px;
 }
 
-#naodisponivel, #agradecimento
+#naodisponivel, #enviado
 {
     margin-top: 5px;
     font-size: large;
 }
 
-#naodisponivel
-{
+#naodisponivel, .errado{
     color: red;
+}
+
+.correto
+{
+    color: green;
 }
 
 section.sobre div aside
