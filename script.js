@@ -74,6 +74,9 @@ function checarinputs()
     if (enviarformulario)
     {
         enviado.innerHTML = '<p class="correto">Muito obrigado, logo daremos retorno</p>'
+        document.getElementById("nome").value = ""
+        document.getElementById("email").value = ""
+        document.getElementById("mensagem").value = ""
     }
 }
 
