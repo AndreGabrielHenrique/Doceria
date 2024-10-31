@@ -12,7 +12,6 @@ const mensagem = document.getElementById("mensagem")
 formulario.addEventListener("submit", (event) =>
 {
     event.preventDefault()
-
     checarinputs()
 })
 
@@ -28,6 +27,7 @@ function checarinputs()
     
     if (valornome === "")
     {
+        enviado.innerHTML = ''
         erronome.innerHTML = '<p class="errado">Nome não preenchido, favor preencher</p>'
         return
     }
@@ -39,11 +39,13 @@ function checarinputs()
 
     if (valoremail === "")
     {
+        enviado.innerHTML = ''
         erroemail.innerHTML = '<p class="errado">E-mail não preenchido, favor preencher</p>'
         return
     }
     else if (!emailvalido(valoremail))
     {
+        enviado.innerHTML = ''
         erroemail.innerHTML = '<p class="errado">E-mail preenchido incorretamente, favor corrigir</p>'
         return
     }
@@ -55,6 +57,7 @@ function checarinputs()
 
     if (valormensagem === "")
     {
+        enviado.innerHTML = ''
         erromensagem.innerHTML = '<p class="errado">Mensagem não preenchida, favor preencher</p>'
         return
     }
