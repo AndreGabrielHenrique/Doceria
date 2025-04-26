@@ -1,0 +1,17 @@
+// src/components/Banner/Banner.sass
+
+.banner
+  width: 100%
+  height: 530px      // Altura fixa para desktop
+  object-fit: cover  // Mantém proporção da imagem
+
+// Responsivo para tablets
+@media (max-width: 800px)
+  .banner
+    height: 530px    // Mantém altura em tablets
+
+// Responsivo para celulares
+@media (max-width: 627px)
+  .banner
+    width: 100%
+    height: auto     // Altura flexível em celulares

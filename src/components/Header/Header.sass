@@ -1,0 +1,50 @@
+// src/components/Header/Header.sass
+
+header
+  background-color: #006599   // Cor principal do header
+  color: white
+  padding: 50px               // Espaçamento interno
+  padding-inline: 60px        // Padding horizontal
+  height: 100%
+  position: fixed             // Header fixo na lateral
+
+.logo
+  text-align: center
+  margin-inline: 16px         // Margem horizontal
+  img
+    width: 50%                // Largura proporcional da logo
+    margin-bottom: 10px
+  p
+    font-size: 2.2em          // Tamanho do texto da marca
+    margin-bottom: 50px
+    color: white
+
+.menu
+  .secao
+    cursor: pointer
+    display: block
+    margin-bottom: 35px       // Espaço entre links do menu
+    font-size: 1.1em
+    text-decoration: none
+    color: white   
+    &:last-child
+      margin-bottom: 0        // Remove margem do último item
+    &:active
+      text-decoration: underline  // Feedback tátil ao clicar
+
+// Responsivo para celulares
+@media (max-width: 627px)
+  header
+    position: static          // Remove fixação lateral
+    width: 100%
+    padding: 40px 0           // Redução de padding
+  .logo
+    img
+      width: 30%              // Ajuste proporcional da logo
+    p
+      font-size: 3.2em        // Texto maior em mobile
+  .menu
+    .secao
+      margin-bottom: 55px     // Aumento de espaçamento
+      font-size: 2.1em        // Links maiores
+      text-align: center      // Centralização

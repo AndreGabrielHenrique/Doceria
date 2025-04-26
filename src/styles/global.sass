@@ -1,0 +1,77 @@
+// src/styles/global.sass
+
+// Reset básico
+*
+  padding: 0
+  margin: 0
+  font-family: Segoe UI, Arial, sans-serif  // Fonte principal
+
+// Estilos do conteúdo principal
+main
+  margin-left: 280px          // Compensa header fixo
+  background-color: white
+  p
+    color: #444444            // Cor de texto padrão
+    line-height: 25px
+    margin-bottom: 30px       // Espaço entre parágrafos
+
+section
+  padding-inline: 42px        // Padding horizontal
+  margin-bottom: 10px
+
+// Hierarquia de títulos
+h2
+    color: #09689a            // Cor temática
+    font-size: 300%           // Tamanho hierárquico
+    font-weight: 390          // Peso semi-bold
+    margin-bottom: 20px
+
+h3
+    color: #09689a
+    font-size: 250%
+    font-weight: 385
+    margin-bottom: 20px
+
+h4
+    color: #09689a
+    font-size: 250%
+    font-weight: 379
+    margin-bottom: 20px
+
+// Estilização global de botões
+button
+    font-size: medium
+    color: white
+    padding: 17px 55px        // Tamanho generoso
+    background-color: #006599 // Cor principal
+    border: 0
+    cursor: pointer
+    &:active
+      background-color: white // Feedback invertido ao clicar
+      color: #006599
+      border: 1px solid #006599
+
+/* Estilos específicos do formulário de contato */
+.contato
+  .formulario
+    > .input
+      margin-bottom: 4px      // Espaço entre campos
+
+    > .erro
+      margin: 0 0 16px 0      // Espaço após mensagem de erro
+      color: red    
+
+// Classes de estado global
+.errado
+  color: red                  // Mensagens de erro
+  line-height: 0
+.correto
+  color: green                // Mensagens de sucesso
+
+// Ajustes mobile globais
+@media (max-width: 627px)
+  main
+    margin-left: 0            // Remove margem do header fixo
+
+  section
+    padding-inline: 32px      // Redução de padding lateral

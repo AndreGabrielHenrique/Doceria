@@ -1,0 +1,31 @@
+// src/components/BemVindo/BemVindo.sass
+
+.bemvindo
+  div
+    display: flex
+    flex-direction: row  // Layout em linha para desktop
+
+  .imagemlateral
+    width: 290px        // Dimensões fixas para imagem
+    height: 390px
+    object-fit: cover   // Corte inteligente da imagem
+
+  aside
+    margin-left: 40px   // Espaçamento lateral para texto
+
+  #naodisponivel
+    margin-top: 5px
+    font-size: large
+    color: red          // Destaque para texto importante
+
+// Media Queries para dispositivos móveis
+@media (max-width: 800px)
+  .bemvindo
+    div
+      flex-direction: column  // Empilha elementos verticalmente
+    aside
+      margin-left: 0          // Remove margem lateral
+      margin-right: 0
+      margin-top: 20px        // Espaço superior entre elementos
+    .imagemlateral
+      width: 100%            // Imagem ocupa largura total

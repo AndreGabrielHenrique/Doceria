@@ -1,0 +1,21 @@
+.visual
+  margin-top: 20px
+  margin-bottom: 38px
+
+  div
+    display: flex
+    flex-direction: row
+    flex-wrap: wrap           // Layout responsivo
+    gap: 20px                 // Espaçamento uniforme
+
+  img
+    width: 490px              // Largura maior que outras galerias
+    height: 200px
+    object-fit: cover
+
+// Responsivo
+@media (max-width: 800px)
+  .visual
+    margin-left: 0
+    img
+      width: 100%             // Adaptação para mobile

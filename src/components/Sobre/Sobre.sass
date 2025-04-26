@@ -1,0 +1,31 @@
+.sobre
+  div
+    display: flex
+    flex-direction: row       // Layout lado a lado desktop
+
+  aside
+    margin-right: 40px        // Espaço entre texto e imagem
+    p
+      color: #444444          // Cor de texto secundária
+      line-height: 25px       // Altura de linha confortável
+      margin-bottom: 30px     // Espaço entre parágrafos
+
+.imagemlateral
+  width: 290px                // Dimensões fixas para imagem
+  height: 390px
+  object-fit: cover           // Corte inteligente
+
+// Responsivo para tablets
+@media (max-width: 800px)
+  .sobre
+    div
+      flex-direction: column  // Empilha elementos
+    aside
+      margin-right: 0         // Remove margem lateral
+
+// Responsivo para celulares
+@media (max-width: 627px)
+    aside
+      margin-left: 0
+    .imagemlateral
+      width: 100%             // Imagem ocupa largura total

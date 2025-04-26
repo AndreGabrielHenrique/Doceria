@@ -1,0 +1,71 @@
+.contato
+  max-width: 800px       // Largura máxima do container
+  margin-bottom: 100px   // Espaçamento inferior
+
+  .formulario
+    display: flex
+    flex-direction: column  // Alinhamento vertical
+
+    .input
+      position: relative    // Permite posicionamento absoluto do ícone
+      input,
+      textarea
+        display: block
+        width: 100%
+        padding: 9px
+        border: 1px solid #006599
+        font-size: 17px
+        &::placeholder
+          color: #006599   // Cor personalizada do placeholder
+        &:focus
+          outline: none     // Remove outline padrão
+      
+      // Ícone de validação (check verde)
+      .check-icon
+        position: absolute
+        right: 0
+        width: 18px
+        height: 18px
+        background-image: url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>\
+<path fill='%234CAF50' d='M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z'/>\
+</svg>")  // SVG inline para o ícone
+        background-size: contain
+        background-repeat: no-repeat
+        transform: translateY(-50%)
+        pointer-events: none
+        z-index: 10
+
+      // Ajuste de posição para inputs
+      input + .check-icon
+        top: 13px          // Posicionamento vertical preciso
+        transform: none !important
+
+      // Ajuste específico para textareas validados
+      &.validado
+        textarea + .check-icon
+          top: 13px        // Alinhamento diferente para textarea
+          transform: none
+
+      // Estilos para campos validados
+      &.validado input,
+      &.validado textarea
+        padding-right: 10px
+        background-clip: padding-box  // Previne vazamento do background
+
+    // Estilização do botão de envio
+    button
+      align-self: flex-start    // Alinhamento à esquerda
+      padding: 17px 55px
+      transition: transform 0.2s  // Efeito de clique suave
+      &:active
+        transform: scale(0.98)    // Efeito de pressionar
+
+// Ajustes para mobile
+@media (max-width: 800px)
+  .input
+    input,
+    textarea
+      width: auto        // Largura automática em dispositivos pequenos
+  .erro
+    margin: 4px 0 8px 0 // Redução de espaçamento vertical

@@ -1,0 +1,21 @@
+.variacao
+  margin-top: 20px
+  margin-bottom: 38px         // Espaçamento vertical
+
+  div
+    display: flex
+    flex-direction: row
+    flex-wrap: wrap           // Quebra de linha automática
+    gap: 20px                 // Espaço entre imagens
+
+  img
+    width: fit-content        // Largura conforme conteúdo
+    height: 190px
+    object-fit: cover         // Mantém proporção
+
+// Responsivo
+@media (max-width: 800px)
+  .variacao
+    margin-left: 0
+    img
+      width: 100%             // Imagens ocupam largura total

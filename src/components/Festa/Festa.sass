@@ -1,0 +1,21 @@
+.festa
+  margin-top: 20px
+  margin-bottom: 38px    // Espaçamento vertical
+
+  div
+    display: flex
+    flex-direction: row  // Layout em linha
+    flex-wrap: wrap      // Quebra de linha automática
+    gap: 20px            // Espaço entre elementos
+
+  img
+    width: 362px         // Largura fixa para desktop
+    height: 200px
+    object-fit: cover    // Corte inteligente das imagens
+
+// Responsivo para tablets e celulares
+@media (max-width: 800px)
+  .festa
+    margin-left: 0       // Remove margem lateral
+    img
+      width: 100%        // Imagens ocupam largura total
