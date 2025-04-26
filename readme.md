@@ -1,1 +1,1 @@
-<p align="center"><img src="Imagens/lighthouse.png" alt="Resultados Lighthouse"></p>
+<p align="center"><img src="src/assets/Imagens/lighthouse.png" alt="Resultados Lighthouse"></p>
