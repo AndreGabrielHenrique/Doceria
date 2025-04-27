@@ -1,4 +1,5 @@
 // src/components/Contato/Contato.jsx
+
 import React, { useEffect, useRef } from 'react' // ← adicionados useEffect e useRef para escutar foco/cli­que fora
 import './Contato.sass'
 import { useFormulario } from '../../hooks/useFormulario'

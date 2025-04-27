@@ -1,4 +1,5 @@
-// C:\MEGA\GPnet\Doceria\src\components\Header\Header.jsx
+// // src/components/Header/Header.jsx
+
 import React from 'react'
 import './Header.sass'
 import stand from '../../assets/Imagens/stand.png'

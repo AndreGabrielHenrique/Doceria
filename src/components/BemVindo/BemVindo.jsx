@@ -1,4 +1,5 @@
-// BemVindo.jsx
+// src/components/BemVindo/BemVindo.jsx
+
 import React, { useState } from 'react'
 import './BemVindo.sass'
 import banner3 from '../../assets/Imagens/banner3.jpg'
@@ -24,7 +25,6 @@ export const BemVindo = () => {
         
         {/* Bloco de conteúdo textual */}
         <aside>
-          {/* Textos institucionais originais */}
           <p>Com localização na cidade de Docelândia, trazemos toda nossa tradição e dedicação em dar um toque adocicado em sua vida.</p>
           <p>Em uma variedade infindável de doces um mundo de puro açúcar chega até sua casa com toda comodidade e cordialidade da casa.</p>
           <p>Venha entrar em contato conosco, garantimos que sua vida será sempre doce e açucarada.</p>

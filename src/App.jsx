@@ -1,4 +1,5 @@
-// App.jsx
+// src/App.jsx
+
 import React from 'react'
 import './styles/global.sass'
 import { Header } from './components/Header/Header'

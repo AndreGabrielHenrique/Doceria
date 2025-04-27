@@ -1,6 +1,8 @@
+// src/components/Variacao/Variacao.jsx
+
 import React from 'react'
 import './Variacao.sass'
-// Importações de imagens mantidas integralmente
+// Importações de imagens
 import galeria1 from '../../assets/Imagens/galeria1.jpg'
 import galeria2 from '../../assets/Imagens/galeria2.jpg'
 import galeria3 from '../../assets/Imagens/galeria3.jpg'
@@ -11,7 +13,7 @@ export const Variacao = () => (
   <section className="variacao">
     {/* Título da seção com link âncora */}
     <h3><a id="variacao">Grande variação</a></h3>
-    {/* Grid de imagens - todas tags img mantidas integralmente */}
+    {/* Grid de imagens */}
     <div>
       <img src={galeria1} alt="Muitos doces" />
       <img src={galeria2} alt="Bolo" />

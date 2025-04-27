@@ -1,4 +1,5 @@
-// Banner.jsx
+// src/components/Banner/Banner.jsx
+
 import React from 'react'
 import './Banner.sass'
 import banner2 from '../../assets/Imagens/banner2.jpg'

@@ -1,4 +1,5 @@
-// C:\MEGA\GPnet\Doceria\src\components\Festa\Festa.jsx
+// src/components/Festa/Festa.jsx
+
 import React from 'react'
 import './Festa.sass'
 // Importação das imagens da galeria
