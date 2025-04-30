@@ -29,7 +29,7 @@ export const Contato = () => {
         !input.contains(target) && input !== target
       )
   
-      if (isOutside || isSubmitButton) {
+      if (isOutside && !isSubmitButton) { // ← Mantém limpeza fora do form mas preserva botão
         clearAllErrors()  // ← limpa todos os erros ao sair pelo tab/clique/button
         clearSuccess()    // ← também limpa qualquer sucesso pendente
       }
@@ -57,6 +57,7 @@ export const Contato = () => {
             onChange={handleChange('nome', setNome)}      // ← atualiza e valida no primeiro caractere
             onFocus={() => { clearSuccess(); validarCampo('nome') }} // ← limpa sucesso e mostra erro
             onBlur={() => validarCampo('nome')}           // ← valida ao sair do campo
+            onKeyDown={e => e.key === 'Enter' && e.preventDefault()}   // ← bloqueia Enter aqui
             autoComplete="off"
           />
           {validado.nome && <span className="check-icon" />} {/* ← ícone só aparece se validado*/}
@@ -72,6 +73,7 @@ export const Contato = () => {
             onChange={handleChange('email', setEmail)}    // ← atualiza e só valida após regex
             onFocus={() => { clearSuccess(); validarCampo('email') }}
             onBlur={() => validarCampo('email')}
+            onKeyDown={e => e.key === 'Enter' && e.preventDefault()}   // ← bloqueia Enter aqui
             autoComplete="off"
           />
           {validado.email && <span className="check-icon" />}
@@ -87,6 +89,12 @@ export const Contato = () => {
             onChange={handleChange('mensagem', setMensagem)} // ← atualiza e valida no primeiro caractere
             onFocus={() => { clearSuccess(); validarCampo('mensagem') }}
             onBlur={() => validarCampo('mensagem')}          // ← error some ao tab→botão tratado pelo effect
+            onKeyDown={e => {
+              if (e.key === 'Enter') {
+                e.preventDefault()                   // bloqueia o submit
+                setMensagem(prev => prev + '\n')     // adiciona nova linha
+              }
+            }}
             autoComplete="off"
           />
           {validado.mensagem && <span className="check-icon" />}
@@ -94,7 +102,20 @@ export const Contato = () => {
         <div className="erro">{erros.mensagem || ''}</div>
 
         {/* Botão de envio */}
-        <button type="submit">
+        <button
+          type="submit"
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              const fakeEvent = { 
+                ...e,
+                preventDefault: () => e.preventDefault(),
+                target: e.currentTarget,
+                type: 'submit' // ← Garante o mesmo tratamento que o submit do form          
+              }
+              handleSubmit(fakeEvent) // ← Simula evento nativo do form
+            }
+          }}
+        >
           Enviar
         </button>
 

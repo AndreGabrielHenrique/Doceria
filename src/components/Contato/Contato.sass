@@ -1,6 +1,6 @@
 // src/components/Contato/Contato.sass
   
-  .contato
+.contato
   max-width: 800px       // Largura máxima do container
   margin-bottom: 100px   // Espaçamento inferior
 
@@ -28,10 +28,8 @@
         right: 0
         width: 18px
         height: 18px
-        background-image: url("data:image/svg+xml;utf8,\
-<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>\
-<path fill='%234CAF50' d='M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z'/>\
-</svg>")  // SVG inline para o ícone
+        // SVG inline do ícone de check (tudo em UMA linha, sem quebras)
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%234CAF50' d='M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z'/></svg>")
         background-size: contain
         background-repeat: no-repeat
         transform: translateY(-50%)

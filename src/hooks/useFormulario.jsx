@@ -119,6 +119,7 @@ export const useFormulario = () => {
 
   /** submissão do formulário */
   const handleSubmit = e => {
+    console.log('Submit disparado por:', e.type) // ← Debug
     e.preventDefault()
     clearSuccess()
 
