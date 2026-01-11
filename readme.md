@@ -11,4 +11,3 @@ Este repositório organiza os componentes em `src/components/`, hooks em `src/ho
 ---
 
 <p align="center"><img src="src/assets/Imagens/lighthouse.png" alt="Resultados Lighthouse"></p>
-<p align="center"><img src="src/assets/Imagens/lighthouse.png" alt="Resultados Lighthouse"></p>
