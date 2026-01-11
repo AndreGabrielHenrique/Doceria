@@ -1,23 +1,249 @@
-// src/components/Variacao/Variacao.sass
+// Estilos SASS para o componente Variacao (galeria + modal)
+// Local: src/components/Variacao/Variacao.sass
 
 .variacao
   margin-top: 20px
-  margin-bottom: 38px         // Espaçamento vertical
+  margin-bottom: 38px         // Espaçamento vertical consistente com outras seções
 
   div
     display: flex
-    flex-direction: row
-    flex-wrap: wrap           // Quebra de linha automática
-    gap: 20px                 // Espaço entre imagens
+    flex-direction: row       // Layout em linha para desktop
+    flex-wrap: wrap           // Quebra automática de linha quando necessário
+    gap: 20px                 // Espaçamento uniforme entre imagens
 
   img
-    width: fit-content        // Largura conforme conteúdo
-    height: 190px
-    object-fit: cover         // Mantém proporção
+    width: fit-content        // Largura se ajusta ao conteúdo natural da imagem
+    height: 190px             // Altura fixa para consistência visual
+    object-fit: cover         // Corta imagem proporcionalmente para preencher container mantendo aspecto
+    transition: transform 0.3s ease
+    will-change: transform    // Otimização de performance para animações de transform
 
-// Responsivo
+    &:hover
+      transform: scale(1.05)  // Efeito de zoom sutil ao passar o mouse
+      cursor: zoom-in         // Cursor indica ação de ampliação possível
+
+/* 🔥 MODAL — Estilos fora da classe .variacao (escopo global) */
+.imagem-modal
+  position: fixed
+  inset: 0                    // Abreviação para top:0; right:0; bottom:0; left:0;
+  z-index: 9998               // Z-index alto para sobrepor todo conteúdo da página
+  background: rgba(0, 0, 0, 0.75) // Overlay escuro semi-transparente
+  display: flex
+  align-items: center
+  justify-content: center
+  animation: fadeIn 0.25s ease forwards // Animação de entrada com easing linear
+
+  &.fechando
+    animation: fadeOut 0.25s ease forwards // Animação de saída
+
+  img
+    max-width: 90%            // Limita largura máxima a 90% da viewport
+    max-height: 90%           // Limita altura máxima a 90% da viewport
+    animation: zoomIn 0.25s ease forwards
+    cursor: zoom-out          // Cursor indica ação de fechamento
+    user-select: none         // Impede seleção de texto da imagem
+    -webkit-user-drag: none   // Impede arrastar imagem no Safari
+    pointer-events: auto      // Garante que eventos de mouse funcionem na imagem
+    touch-action: pan-y       // Permite apenas scroll vertical em dispositivos touch
+    transition: transform 0.35s cubic-bezier(.4,0,.2,1) // Transição suave com easing personalizado
+    will-change: transform    // Otimização para animações de transform
+
+  &.fechando img
+    animation: zoomOut 0.25s ease forwards
+
+  .modal-conteudo
+    position: relative
+    width: 100%
+    height: 100%
+    display: inline-flex
+    align-items: center
+    justify-content: center
+
+    .imagem-wrapper
+      position: relative
+      display: flex
+      flex-direction: column
+      align-items: center
+      justify-content: center
+
+.imagem-modal-img
+  max-width: 90%
+  max-height: 90%
+  cursor: zoom-out
+  user-select: none
+  -webkit-user-drag: none
+  pointer-events: auto
+  touch-action: pan-y
+  will-change: transform, opacity // Otimização para múltiplas propriedades
+  animation: slideIn .35s cubic-bezier(.4,0,.2,1) // Animação base de entrada
+
+  &.left
+    animation: slideInFromRight .35s cubic-bezier(.4,0,.2,1) // Animação especial para entrada da direita
+
+  &.right
+    animation: slideInFromLeft .35s cubic-bezier(.4,0,.2,1) // Animação especial para entrada da esquerda
+
+.nav
+  position: absolute
+  inset-block: 0              // Posiciona verticalmente ao centro (top e bottom 0 + margin auto)
+  margin: auto 0
+  z-index: 9999               // Z-index acima do modal
+
+  width: 56px
+  height: 56px
+
+  display: flex
+  align-items: center
+  justify-content: center
+
+  font-size: 56px
+  line-height: 56px
+
+  background: none !important // Remove qualquer estilo de fundo
+  border: 0 !important        // Remove bordas
+  padding: 0
+  box-shadow: none !important // Remove sombras
+
+  color: #fff                 // Texto branco
+  cursor: pointer
+
+  user-select: none           // Impede seleção de texto
+  -webkit-user-drag: none     // Impede arrastar no Safari
+  outline: none               // Remove outline padrão do navegador
+
+  opacity: 1
+  transform: translateX(0)
+  transition: opacity .25s ease, transform .25s ease // Transições suaves para hover/active
+  pointer-events: auto        // Garante que botão seja clicável
+
+  &:hover
+    color: #aaa               // Cor mais clara ao passar mouse
+    background: none
+
+  &:active
+    color: #006599            // Cor da marca ao clicar
+    background: none
+
+  &:focus,
+  &:focus-visible
+    outline: none
+    background: none
+
+  &.prev
+    left: 20px                // Posiciona à esquerda com margem
+
+  &.next
+    right: 20px               // Posiciona à direita com margem
+
+.nav::-moz-focus-inner        // Regra específica para Firefox
+  border: 0
+
+.swipe-hint
+  display: none               // Oculta por padrão (será mostrado apenas em mobile)
+
+// DEFINIÇÕES DE ANIMAÇÕES CSS
+@keyframes fadeIn
+  from
+    opacity: 0
+  to
+    opacity: 1
+
+@keyframes fadeOut
+  to
+    opacity: 0
+
+@keyframes zoomIn
+  from
+    transform: scale(0.85)
+  to
+    transform: scale(1)
+
+@keyframes zoomOut
+  to
+    transform: scale(0.85)
+
+@keyframes slideIn
+  from
+    opacity: .6
+    transform: scale(.96)
+  to
+    opacity: 1
+    transform: scale(1)
+
+@keyframes slideInFromRight
+  from
+    opacity: .6
+    transform: translateX(60px)
+  to
+    opacity: 1
+    transform: translateX(0)
+
+@keyframes slideInFromLeft
+  from
+    opacity: .6
+    transform: translateX(-60px)
+  to
+    opacity: 1
+    transform: translateX(0)
+
+@keyframes swipeFade
+  0%
+    opacity: 0
+  15%
+    opacity: 1
+  80%
+    opacity: 1
+  100%
+    opacity: 0
+
+@keyframes swipeIn
+  from
+    opacity: 0
+    transform: translateY(-10px)
+  to
+    opacity: 1
+    transform: translateY(0)
+
+@keyframes swipeOut
+  from
+    opacity: 1
+    transform: translateY(0)
+  to
+    opacity: 0
+    transform: translateY(10px)
+
+// MEDIA QUERIES PARA RESPONSIVIDADE
 @media (max-width: 800px)
   .variacao
-    margin-left: 0
+    margin-left: 0           // Remove margem lateral em mobile
+    
     img
-      width: 100%             // Imagens ocupam largura total
+      width: 100%            // Imagens ocupam 100% da largura do container em mobile
+  
+  .imagem-modal
+    flex-direction: column   // Organiza conteúdo em coluna
+
+  .nav
+    opacity: 0               // Oculta botões de navegação em mobile
+    pointer-events: none     // Desabilita interação
+
+    &.prev
+      transform: translateX(-20px)
+
+    &.next
+      transform: translateX(20px)
+
+  .swipe-hint
+    display: block           // Exibe apenas em dispositivos móveis
+    position: absolute
+    top: 100%
+    margin-top: 76px
+    width: 120px
+    z-index: 10001           // Acima de outros elementos do modal
+    pointer-events: none     // Não interfere com interações do usuário
+    opacity: 0
+    transform: translateY(10px)
+
+    &.ativa
+      // Animação combinada: entrada suave seguida de saída após 3.1 segundos
+      animation: swipeIn .4s ease forwards, swipeOut .4s ease forwards 3.1s

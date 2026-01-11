@@ -1,0 +1,375 @@
+/* legacy\style.css  */
+
+/* Reset básico para remover margens e paddings padrão dos navegadores */
+*
+{
+    padding: 0;
+    margin: 0;
+    font-family: Segoe UI, Arial, sans-serif;
+    /* Define fonte padrão com fallback */
+}
+
+/* Estilização do cabeçalho fixo */
+header
+{
+    background-color: #006599; /* Azul principal da marca */
+    color: white;
+    padding: 50px;
+    padding-inline: 60px; /* Padding horizontal */
+    height: 100%;
+    position: fixed; /* Fixa cabeçalho à esquerda */
+}
+
+/* Container da logo */
+.logo
+{
+    text-align: center;
+    margin-inline: 16px; /* Margem horizontal */
+}
+
+.logo img
+{
+    width: 50%;
+    margin-bottom: 10px;
+}
+
+.logo p
+{
+    font-size: 2.2em;
+    margin-bottom: 50px;
+    color: white;
+}
+
+/* Estilização dos links do menu */
+.secao
+{
+    cursor: pointer;
+    display: block;
+    margin-bottom: 35px;
+    font-size: 1.1em;
+    text-decoration: none;
+    color: white;   
+}
+
+.secao:last-child
+{
+    margin-bottom: 0; /* Remove margem do último item */
+}
+
+.secao:active
+{
+    text-decoration: underline; /* Feedback visual ao clicar */
+}
+
+/* Conteúdo principal com margem para compensar cabeçalho fixo */
+main
+{
+    margin-left: 280px;
+    background-color: white;
+}
+
+/* Banner principal */
+.banner
+{   
+    width: 100%;
+    height: 530px;
+    object-fit: cover; /* Mantém proporção e cobre área */
+}
+
+/* Estilos hierárquicos de títulos */
+h2
+{
+    color: #09689a; /* Azul mais claro para contraste */
+    font-size: 300%;
+    font-weight: 390;
+    margin-bottom: 20px;
+}
+
+h3
+{
+    color: #09689a;
+    font-size: 250%;
+    font-weight: 385;
+    margin-bottom: 20px;
+}
+
+h4
+{
+    color: #09689a;
+    font-size: 250%;
+    font-weight: 379;
+    margin-bottom: 20px;
+}
+
+/* Estilização padrão para parágrafos */
+main p
+{
+    color: #444444; /* Cinza escuro para melhor legibilidade */
+    line-height: 25px; /* Espaçamento entre linhas */
+    margin-bottom: 30px;
+}
+
+/* Estilização de botões */
+#lermais, .formulario button
+{
+    font-size: medium;
+    color: white;
+    padding: 17px 55px;
+    background-color: #006599;
+    border: 0;
+    cursor: pointer;
+}
+
+/* Estados ativos dos botões */
+#lermais:active, .formulario button:active
+{
+    background-color: white;
+    color: #006599;
+    border: 1px solid #006599;
+}
+
+/* Botão específico do formulário */
+.formulario button
+{
+    padding: 19px 72px;
+    font-size: large;
+}
+
+/* Classe para imagens laterais (seções bemvindo e sobre) */
+.imagemlateral
+{
+    width: 290px;
+    height: 390px;
+    object-fit: cover;
+}
+
+/* Estilização padrão para seções */
+section
+{
+    padding-inline: 32px; /* Padding horizontal */
+    margin-bottom: 10px;
+}
+
+/* Layout flex para seções bemvindo e sobre */
+section.bemvindo div, section.sobre div
+{
+    display: flex;
+    flex-direction: row;
+}
+
+/* Espaçamento específico para aside da seção bemvindo */
+section.bemvindo div aside
+{
+    margin-left: 40px;
+}
+
+/* Containers para mensagens dinâmicas */
+#naodisponivel, #enviado
+{
+    margin-top: 5px;
+    font-size: large;
+}
+
+/* Cores para feedback visual */
+#naodisponivel, .errado
+{
+    color: red; /* Mensagens de erro */
+}
+
+.errado
+{
+    line-height: 0; /* Remove espaçamento extra */
+}
+
+.correto
+{
+    color: green; /* Mensagens de sucesso */
+}
+
+/* Espaçamento específico para aside da seção sobre */
+section.sobre div aside
+{
+    margin-right: 40px;
+}
+
+/* Seções de galeria com margens específicas */
+section.variacao, section.visual, section.festa
+{
+    margin-left: 30px;
+    margin-top: 20px;
+    margin-bottom: 38px;
+}
+
+/* Galeria com imagens de tamanho uniforme */
+section.variacao img
+{
+    width: fit-content;
+    height: 190px;
+    object-fit: cover;
+}
+
+/* Layout flex para galerias */
+section.variacao div, section.visual div, section.festa div
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; /* Permite quebra de linha em telas menores */
+    gap: 20px; /* Espaçamento entre imagens */
+}
+
+/* Dimensões específicas para galeria visual */
+section.visual img
+{
+    width: 490px;
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Dimensões específicas para galeria festa */
+section.festa img
+{
+    width: 362px;
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Estilização da seção de contato */
+section.contato
+{
+    margin-left: 40px;
+    margin-top: 60px;
+    margin-bottom: 100px;
+}
+
+/* Campos de formulário */
+input, textarea
+{
+    display: block;
+    width: 505px;
+    padding: 9px;
+    font-size: 17px;
+    border: 1px solid #006599; /* Borda com cor da marca */
+    margin-bottom: 20px;
+}
+
+/* Placeholders estilizados */
+input::placeholder, textarea::placeholder
+{
+    color: #006599;
+}
+
+/* Remover outline padrão do navegador e manter borda personalizada */
+input:focus, textarea:focus
+{
+    outline: #006599;
+}
+
+/* MEDIA QUERIES PARA RESPONSIVIDADE */
+
+/* Tablet: 501px a 800px */
+@media (min-width: 501px) and (max-width: 800px)
+{
+    /* Altera layout para coluna em telas médias */
+    section.bemvindo div, section.sobre div
+    {
+        flex-direction: column;
+    }
+
+    /* Remove margens laterais */
+    section.bemvindo div aside, section.sobre div aside
+    {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    /* Adiciona margem superior para separação */
+    section.bemvindo div aside
+    {
+        margin-top: 20px;
+    }
+
+    /* Remove margens específicas para telas menores */
+    section.variacao, section.visual, section.festa, section.contato
+    {
+        margin-left: 0;
+    }
+
+    /* Elementos ocupam 100% da largura disponível */
+    input, textarea, section.variacao img, section.visual img, section.festa img, .imagemlateral
+    {
+        width: 100%;
+    }
+}
+
+/* Mobile: até 500px */
+@media (max-width: 500px)
+{
+    /* Cabeçalho deixa de ser fixo e ocupa largura total */
+    header
+    {
+        position: static;
+        width: 100%;
+        padding: 40px 0 40px;
+    }
+
+    /* Ajustes na logo para mobile */
+    .logo
+    {
+        text-align: center;
+        margin-inline: 6px;
+    }
+
+    .logo img
+    {
+        width: 30%; /* Logo menor em mobile */
+        margin-bottom: 10px;
+    }
+
+    .logo p
+    {
+        font-size: 3.2em; /* Texto maior para legibilidade */
+    }
+
+    /* Menu em coluna com itens maiores */
+    .secao
+    {
+        margin-bottom: 55px;
+        font-size: 2.1em;
+        text-align: center;   
+    }
+
+    /* Remove margem lateral do conteúdo principal */
+    main
+    {
+        margin-left: 0;
+    }
+
+    /* Layout em coluna para todas as seções */
+    section.bemvindo div, section.sobre div
+    {
+        flex-direction: column;
+    }
+
+    section.bemvindo div aside, section.sobre div aside
+    {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    section.bemvindo div aside
+    {
+        margin-top: 20px;
+    }
+
+    /* Remove todas as margens laterais específicas */
+    section.variacao, section.visual, section.festa, section.contato
+    {
+        margin-left: 0;
+    }
+
+    /* Todos os elementos ocupam 100% da largura */
+    input, textarea, section.variacao img, section.visual img, section.festa img, .imagemlateral
+    {
+        width: 100%;
+    }
+}

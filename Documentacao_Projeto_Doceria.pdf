@@ -1,0 +1,29 @@
+# Documentação do Projeto Doceria
+
+## Descrição do Projeto
+O projeto **Doceria** é uma aplicação web desenvolvida em React, que tem como objetivo apresentar uma interface interativa para os usuários, permitindo a navegação entre diferentes seções como: Banner, Bem-Vindo, Sobre, Variacao, Visual, Festa e Contato.
+
+## Estrutura do Projeto
+A estrutura do projeto é organizada da seguinte forma:
+
+- **src/**: Contém todos os arquivos de código-fonte da aplicação.
+  - **components/**: Componentes reutilizáveis da aplicação.
+  - **hooks/**: Hooks personalizados utilizados na aplicação.
+  - **styles/**: Estilos globais e específicos da aplicação.
+- **public/**: Arquivos estáticos, como o favicon e o HTML principal.
+- **legacy/**: Código antigo que não está mais em uso.
+
+## Dependências
+O projeto utiliza as seguintes dependências:
+- React
+- React DOM
+
+## Scripts
+Os seguintes scripts estão disponíveis:
+- `npm run dev`: Inicia o servidor de desenvolvimento.
+- `npm run build`: Cria uma versão otimizada para produção.
+- `npm run lint`: Executa o ESLint para verificar problemas de código.
+- `npm run preview`: Visualiza a versão de produção.
+
+## Conclusão
+A aplicação **Doceria** é uma demonstração de como utilizar React para construir interfaces modernas e responsivas. A estrutura modular permite fácil manutenção e escalabilidade.

@@ -1,34 +1,35 @@
-// src/hooks/useFormulario.jsx
+// Hook customizado para gerenciar estado, validação e comportamento do formulário de contato
+// Local: src/hooks/useFormulario.jsx
 
 import { useState } from 'react'
 
-// Regex estrita para e-mail
+// Regex estrita para validação de e-mail (mais simples que a anterior mas eficiente)
 const emailValido = email => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 
 export const useFormulario = () => {
-  // ─── Estados dos campos ─────────────────────────────────────────────
+  // ─── Estados dos campos do formulário ──────────────────────────────
   const [nome, setNome]         = useState('')
   const [email, setEmail]       = useState('')
   const [mensagem, setMensagem] = useState('')
-  const [erros, setErros]       = useState({})          // mensagens de erro
-  const [enviado, setEnviado]   = useState('')          // feedback de sucesso
-  const [validado, setValidado] = useState({            // flags de outline/SVG
+  const [erros, setErros]       = useState({})          // Objeto para mensagens de erro por campo
+  const [enviado, setEnviado]   = useState('')          // String para feedback de sucesso após envio
+  const [validado, setValidado] = useState({            // Objeto com flags para controle visual (outline/SVG de check)
     nome: false,
     email: false,
     mensagem: false
   })
 
-  /** limpa aviso de sucesso */
+  /** Limpa aviso de sucesso (usado ao focar em campos após envio) */
   const clearSuccess = () => {
     setEnviado('')
   }
 
-  /** limpa todos os erros de uma vez (usado no effect externo) */
+  /** Limpa todos os erros de uma vez (usado no effect externo do componente Contato) */
   const clearAllErrors = () => {
     setErros({})
   }
 
-  /** valida um campo isolado (onBlur e handleChange) */
+  /** Valida um campo isolado (usado em onBlur e handleChange) */
   const validarCampo = campo => {
     const valor = campo === 'nome'
       ? nome.trim()
@@ -43,6 +44,9 @@ export const useFormulario = () => {
       if (campo === 'nome') {
         if (!valor) {
           e.nome = 'Nome não preenchido, favor preencher'
+          v.nome = false
+        } else if (valor.length < 2) {
+          e.nome = 'Nome deve ter pelo menos 2 caracteres'
           v.nome = false
         } else {
           v.nome = true
@@ -69,6 +73,9 @@ export const useFormulario = () => {
         if (!valor) {
           e.mensagem = 'Mensagem não preenchida, favor preencher'
           v.mensagem = false
+        } else if (valor.length < 5) {
+          e.mensagem = 'Mensagem deve ter pelo menos 5 caracteres'
+          v.mensagem = false
         } else {
           v.mensagem = true
         }
@@ -76,87 +83,127 @@ export const useFormulario = () => {
         return e
       }
 
-      // fallback
+      // Fallback para casos não tratados (mantém estado anterior)
       setValidado(v)
       return prev
     })
   }
 
-  /** onChange genérico: valida no primeiro caractere */
+  /** onChange genérico: valida no primeiro caractere digitado (validação em tempo real) */
   const handleChange = (campo, setter) => e => {
-    clearSuccess()                // limpa qualquer mensagem de sucesso
+    clearSuccess()                // Limpa qualquer mensagem de sucesso anterior
     const v = e.target.value
-    setter(v)
+    setter(v)                     // Atualiza o estado do campo
 
+    // 1️⃣ Campo vazio → erro de obrigatório
     if (v.trim().length === 0) {
-      // erro imediato se vazia
       const msg =
-        campo === 'email'
-          ? 'E-mail não preenchido, favor preencher'
+        campo === 'nome'
+          ? 'Nome não preenchido, favor preencher'
           : campo === 'mensagem'
             ? 'Mensagem não preenchida, favor preencher'
-            : 'Nome não preenchido, favor preencher'
+            : 'E-mail não preenchido, favor preencher'
       setErros(prev => ({ ...prev, [campo]: msg }))
       setValidado(prev => ({ ...prev, [campo]: false }))
       return
     }
 
+    // 2️⃣ Verifica mínimo de caracteres específico para cada campo
+    const min =
+      campo === 'nome' ? 2 :
+      campo === 'mensagem' ? 5 :
+      1  // Para email, mínimo 1 caractere antes de validar formato
+
+    if (v.trim().length < min) {
+      const msg =
+        campo === 'nome'
+          ? 'Nome deve ter pelo menos 2 caracteres'
+          : campo === 'mensagem'
+            ? 'Mensagem deve ter pelo menos 5 caracteres'
+            : 'E-mail não preenchido, favor preencher'
+
+      setErros(prev => ({ ...prev, [campo]: msg }))
+      setValidado(prev => ({ ...prev, [campo]: false }))
+      return
+    }
+
+    // 3️⃣ Validação extra para e-mail (formato regex)
     if (campo === 'email' && !emailValido(v.trim())) {
-      // validação extra de regex só para e-mail
+      // Validação específica de regex só para e-mail
       setErros(prev => ({ ...prev, email: 'E-mail preenchido incorretamente, favor corrigir' }))
       setValidado(prev => ({ ...prev, email: false }))
       return
     }
 
-    // se chegou aqui, campo válido
+    // Se chegou aqui, campo válido - atualiza estado de validação e limpa erro
     setValidado(prev => ({ ...prev, [campo]: true }))
     setErros(prev => {
       const e = { ...prev }
-      delete e[campo]
+      delete e[campo]  // Remove erro específico deste campo
       return e
     })
   }
 
-  /** submissão do formulário */
+  /** Submissão do formulário (validação final e processamento) */
   const handleSubmit = e => {
-    console.log('Submit disparado por:', e.type) // ← Debug
-    e.preventDefault()
-    clearSuccess()
+    console.log('Submit disparado por:', e.type) // ← Debug para verificar origem do submit
+    e.preventDefault() // Previne comportamento padrão de recarregar página
+    clearSuccess()     // Limpa mensagem de sucesso anterior
 
-    // 1) nome
-    if (!nome.trim()) {
+    const n = nome.trim()
+    const m = mensagem.trim()
+    const em = email.trim()
+
+    // 1) Validação do nome (obrigatório e mínimo 2 caracteres)
+    if (!n) {
       setErros({ nome: 'Nome não preenchido, favor preencher' })
       setValidado(prev => ({ ...prev, nome: false }))
       return
     }
+    if (n.length < 2) {
+      setErros({ nome: 'Nome deve ter pelo menos 2 caracteres' })
+      setValidado(prev => ({ ...prev, nome: false }))
+      return
+    }
 
-    // 2) e-mail vazio
-    if (!email.trim()) {
+    // 2) Validação do e-mail (obrigatório e formato válido)
+    if (!em) {
       setErros({ email: 'E-mail não preenchido, favor preencher' })
       setValidado(prev => ({ ...prev, email: false }))
       return
-    } else if (!emailValido(email.trim())) {
-      // 2b) formato do e-mail
+    }
+
+    // 2b) Validação de formato do e-mail via regex
+    if (!emailValido(em)) {
       setErros({ email: 'E-mail preenchido incorretamente, favor corrigir' })
       setValidado(prev => ({ ...prev, email: false }))
       return
     }
 
-    // 3) mensagem
-    if (!mensagem.trim()) {
-      setErros(prev => ({ ...prev, mensagem: 'Mensagem não preenchida, favor preencher' }))
+    // 3) Validação da mensagem (obrigatório e mínimo 5 caracteres)
+    if (!m) {
+      setErros({ mensagem: 'Mensagem não preenchida, favor preencher' })
+      setValidado(prev => ({ ...prev, mensagem: false }))
+      return
+    }
+    if (m.length < 5) {
+      setErros({ mensagem: 'Mensagem deve ter pelo menos 5 caracteres' })
       setValidado(prev => ({ ...prev, mensagem: false }))
       return
     }
 
-    // sucesso
+    // Sucesso - todas as validações passaram
     setEnviado('Muito obrigado, logo daremos retorno')
-    // limpa campos e flags
-    setNome(''); setEmail(''); setMensagem('')
-    setErros({}); 
-    setValidado({ nome: false, email: false, mensagem: false }) // ← reseta SVGs após sucesso
+    
+    // Limpa campos e reseta estados após envio bem-sucedido
+    setNome('')
+    setEmail('')
+    setMensagem('')
+    setErros({})
+    setValidado({ nome: false, email: false, mensagem: false }) // ← Reseta SVGs de check após sucesso
   }
 
+  // Retorna todos os estados e funções necessárias para o componente Contato
   return {
     nome, setNome,
     email, setEmail,

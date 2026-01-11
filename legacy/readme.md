@@ -1,0 +1,1 @@
+<p align="center"><img src="./lighthouse.png" alt="Resultados Lighthouse"></p>

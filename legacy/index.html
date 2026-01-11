@@ -1,0 +1,170 @@
+<!-- legacy\index.html -->
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<!--
+  Estrutura básica do documento HTML5 com idioma português brasileiro
+  Define a página principal da Doceria com estrutura semântica completa
+-->
+
+<head>
+    <!-- Configurações do cabeçalho do documento -->
+    <meta charset="UTF-8">
+    <!-- Define codificação de caracteres para UTF-8 (suporte a acentos e caracteres especiais) -->
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Configura viewport para responsividade em dispositivos móveis -->
+    
+    <meta name="description" content="Doceria com doces que adoçam a sua vida.">
+    <!-- Meta descrição para SEO e preview em redes sociais -->
+    
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <!-- Link para o arquivo CSS de estilos -->
+    
+    <link rel="shortcut icon" href="/src/assets/Imagens/favicon.ico">
+    <!-- Ícone favorito (favicon) exibido na aba do navegador -->
+    
+    <title>Doceria</title>
+    <!-- Título da página exibido na aba do navegador -->
+</head>
+
+<body>
+    <!-- Cabeçalho fixo com logo e menu de navegação -->
+    <header>
+        <!-- Container da logo com imagem e texto -->
+        <nav class="logo">
+            <img src="/src/assets/Imagens/stand.png" alt="Logotipo Doceria">
+            <!-- Imagem da logo com texto alternativo para acessibilidade -->
+            <p>Doceria</p>
+            <!-- Texto da marca -->
+        </nav>
+
+        <!-- Menu principal de navegação -->
+        <nav class="menu">
+            <!-- Links âncora para navegação interna na página -->
+            <a href="#bemvindo" class="secao">Bem vindo</a>
+            <a href="#sobre" class="secao">Sobre nós</a>
+            <a href="#variacao" class="secao">Grande variação</a>
+            <a href="#visual" class="secao">Delícia visual</a>
+            <a href="#festa" class="secao">Doce festa</a>
+            <a href="#contato" class="secao">Entre em contato</a>
+        </nav>
+    </header>
+
+    <!-- Conteúdo principal da página -->
+    <main>
+        <!-- Banner principal da página -->
+        <img src="/src/assets/Imagens/banner2.jpg" class="banner" alt="Banner Doceria">
+        
+        <!-- Seção de boas-vindas -->
+        <section class="bemvindo">
+            <h2><a id="bemvindo">Seja bem vindo a Doceria</a></h2>
+            <!-- Âncora para navegação interna com id correspondente -->
+            
+            <div>
+                <!-- Imagem ilustrativa da seção -->
+                <img src="/src/assets/Imagens/banner3.jpg" class="imagemlateral" alt="Boas vindas">
+                
+                <!-- Conteúdo textual da seção -->
+                <aside>
+                    <p>Com localização na cidade de Docelândia, trazemos toda nossa tradição e dedicação em dar um toque adocicado em sua vida.</p>
+                    <p>Em uma variedade infindável de doces um mundo de puro açúcar chega até sua casa com toda comodidade e cordialidade da casa.</p>
+                    <p>Venha entrar em contato conosco, garantimos que sua vida será sempre doce e açucarada.</p>
+                    
+                    <!-- Botão que aciona função JavaScript -->
+                    <button type="button" id="lermais" onclick="alerta()">Leia mais</button>
+                    
+                    <!-- Container para mensagem dinâmica do JavaScript -->
+                    <div id="naodisponivel"></div>
+                </aside>
+            </div>
+        </section>
+
+        <!-- Seção sobre a empresa -->
+        <section class="sobre">
+            <h2><a id="sobre">Sobre nós</a></h2>
+            <div>
+                <aside>
+                    <p>Feitos de amantes de doces para amantes de doces, nossa paixão é criar doces não somente deliciosos mas também visualmente bonitos para adoçar igualmente sua visão e proporcionar uma experiência sem igual.</p>
+                    <p>Tudo começou com nosso amor e visão em desenvolver um universo adocicado para todos, começando com uma loja online e chegando a abrir a primeira unidade física, para depois se expandir por todo o mundo.</p>
+                    <p>Por fim criamos uma cidade aonde todos amam doces e vivem de doces, com referência internacional tanto politicamente quanto economicamente.</p>
+                </aside>
+                <img src="/src/assets/Imagens/banner4.jpg" class="imagemlateral" alt="Sobre nós">
+            </div>
+        </section>
+
+        <!-- Seção de galeria com grande variedade -->
+        <section class="variacao">
+            <h3><a id="variacao">Grande variação</a></h3>
+            <div>
+                <!-- Galeria de imagens responsiva -->
+                <img src="/src/assets/Imagens/galeria1.jpg" alt="Muitos doces">
+                <img src="/src/assets/Imagens/galeria2.jpg" alt="Bolo">
+                <img src="/src/assets/Imagens/galeria3.jpg" alt="Confeitaria">
+                <img src="/src/assets/Imagens/galeria4.jpg" alt="Doces aos montes">
+                <img src="/src/assets/Imagens/galeria5.jpg" alt="Cupcakes">
+            </div>
+        </section>
+
+        <!-- Seção de galeria focada na apresentação visual -->
+        <section class="visual">
+            <h3><a id="visual">Delícia visual</a></h3>
+            <div>
+                <img src="/src/assets/Imagens/galeria6.jpg" alt="De encher os olhos">
+                <img src="/src/assets/Imagens/galeria7.jpg" alt="Bolo">
+                <img src="/src/assets/Imagens/galeria8.jpg" alt="Mini cupcake">
+            </div>
+        </section>
+
+        <!-- Seção de galeria para eventos e festas -->
+        <section class="festa">
+            <h3><a id="festa">Doce festa</a></h3>
+            <div>
+                <img src="/src/assets/Imagens/galeria9.jpg" alt="Panqueca doce">
+                <img src="/src/assets/Imagens/galeria10.jpg" alt="Beijinho">
+                <img src="/src/assets/Imagens/galeria11.jpg" alt="Mousse">
+                <img src="/src/assets/Imagens/galeria12.jpg" alt="Doces infinitos">
+            </div>
+        </section>
+
+        <!-- Seção de formulário de contato -->
+        <section class="contato">
+            <h4><a id="contato">Entre em contato</a></h4>
+            
+            <!-- Formulário com validação JavaScript -->
+            <form id="formulario" class="formulario">
+                <!-- Campo de nome -->
+                <div class="input">
+                    <input type="text" placeholder="Nome" name="nome" id="nome" autocomplete="off">
+                    <!-- Campo de texto sem sugestões automáticas (autocomplete="off") -->
+                </div>
+                <div id="erronome"></div>
+                <!-- Container para mensagens de erro do nome -->
+                
+                <!-- Campo de e-mail -->
+                <div class="input">
+                    <input type="email" placeholder="E-mail" name="email" id="email" autocomplete="off">
+                </div>
+                <div id="erroemail"></div>
+                <!-- Container para mensagens de erro do e-mail -->
+                
+                <!-- Campo de mensagem (textarea) -->
+                <div class="input">
+                    <textarea placeholder="Escreva sua mensagem..." name="mensagem" id="mensagem" rows="8" autocomplete="off"></textarea>
+                </div>
+                <div id="erromensagem"></div>
+                <!-- Container para mensagens de erro da mensagem -->
+                
+                <!-- Botão de submissão do formulário -->
+                <button type="submit">Enviar</button>
+                
+                <!-- Container para mensagem de confirmação -->
+                <div id="enviado"></div>
+            </form>
+        </section>
+    </main>
+
+    <!-- Inclusão do arquivo JavaScript -->
+    <script src="./script.js"></script>
+</body>
+</html>

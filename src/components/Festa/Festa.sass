@@ -1,23 +1,249 @@
-// src/components/Festa/Festa.sass
-  
+// Estilos SASS para o componente Festa (galeria + modal)
+// Local: src/components/Festa/Festa.sass
+
 .festa
   margin-top: 20px
-  margin-bottom: 38px    // Espaçamento vertical
+  margin-bottom: 38px    // Espaçamento vertical consistente
 
   div
     display: flex
-    flex-direction: row  // Layout em linha
-    flex-wrap: wrap      // Quebra de linha automática
-    gap: 20px            // Espaço entre elementos
+    flex-direction: row  // Layout em linha para desktop
+    flex-wrap: wrap      // Quebra automática de linha
+    gap: 20px            // Espaço uniforme entre elementos
 
   img
     width: 362px         // Largura fixa para desktop
     height: 200px
-    object-fit: cover    // Corte inteligente das imagens
+    object-fit: cover    // Corta imagem proporcionalmente para preencher container
+    transition: transform 0.3s ease
+    will-change: transform // Otimização de performance para transform
 
-// Responsivo para tablets e celulares
+    &:hover
+      transform: scale(1.05) // Efeito de zoom sutil ao passar mouse
+      cursor: zoom-in        // Indica ação de ampliação
+      
+/* 🔥 MODAL — Estilos fora da classe .festa (posicionamento global) */
+.imagem-modal
+  position: fixed
+  inset: 0                // Equivalente a top:0; right:0; bottom:0; left:0;
+  z-index: 9998           // Alta prioridade para sobrepor todo conteúdo
+  background: rgba(0, 0, 0, 0.75) // Overlay escuro semi-transparente
+  display: flex
+  align-items: center
+  justify-content: center
+  animation: fadeIn 0.25s ease forwards // Animação de entrada
+
+  &.fechando
+    animation: fadeOut 0.25s ease forwards // Animação de saída
+
+  img
+    max-width: 90%
+    max-height: 90%
+    animation: zoomIn 0.25s ease forwards
+    cursor: zoom-out // Indica ação de fechamento
+    user-select: none // Impede seleção de texto da imagem
+    -webkit-user-drag: none // Impede arrastar imagem no Safari
+    pointer-events: auto // Garante que eventos de mouse funcionem
+    touch-action: pan-y // Permite apenas scroll vertical em touch
+    transition: transform 0.35s cubic-bezier(.4,0,.2,1)
+    will-change: transform // Otimização
+
+  &.fechando img
+    animation: zoomOut 0.25s ease forwards
+
+  .modal-conteudo
+    position: relative
+    width: 100%
+    height: 100%
+    display: inline-flex
+    align-items: center
+    justify-content: center
+
+    .imagem-wrapper
+      position: relative
+      display: flex
+      flex-direction: column
+      align-items: center
+      justify-content: center
+
+.imagem-modal-img
+  max-width: 90%
+  max-height: 90%
+  cursor: zoom-out
+  user-select: none
+  -webkit-user-drag: none
+  pointer-events: auto
+  touch-action: pan-y
+  will-change: transform, opacity
+  animation: slideIn .35s cubic-bezier(.4,0,.2,1) // Animação base
+
+  &.left
+    animation: slideInFromRight .35s cubic-bezier(.4,0,.2,1) // Entrada da direita
+
+  &.right
+    animation: slideInFromLeft .35s cubic-bezier(.4,0,.2,1) // Entrada da esquerda
+
+.nav
+  position: absolute
+  inset-block: 0 // Posiciona verticalmente ao centro
+  margin: auto 0
+  z-index: 9999 // Acima do modal
+
+  width: 56px
+  height: 56px
+
+  display: flex
+  align-items: center
+  justify-content: center
+
+  font-size: 56px
+  line-height: 56px
+
+  background: none !important // Remove estilos padrão
+  border: 0 !important
+  padding: 0
+  box-shadow: none !important
+
+  color: #fff
+  cursor: pointer
+
+  user-select: none
+  -webkit-user-drag: none
+  outline: none // Remove outline padrão
+
+  opacity: 1
+  transform: translateX(0)
+  transition: opacity .25s ease, transform .25s ease
+  pointer-events: auto
+
+  &:hover
+    color: #aaa
+    background: none
+
+  &:active
+    color: #006599 // Cor da marca ao clicar
+    background: none
+
+  &:focus,
+  &:focus-visible
+    outline: none
+    background: none
+
+  &.prev
+    left: 20px // Posiciona à esquerda
+
+  &.next
+    right: 20px // Posiciona à direita
+
+.nav::-moz-focus-inner // Firefox específico
+  border: 0
+
+.swipe-hint
+  display: none // Oculta por padrão
+
+// DEFINIÇÕES DE ANIMAÇÕES
+@keyframes fadeIn
+  from
+    opacity: 0
+  to
+    opacity: 1
+
+@keyframes fadeOut
+  to
+    opacity: 0
+
+@keyframes zoomIn
+  from
+    transform: scale(0.85)
+  to
+    transform: scale(1)
+
+@keyframes zoomOut
+  to
+    transform: scale(0.85)
+
+@keyframes slideIn
+  from
+    opacity: .6
+    transform: scale(.96)
+  to
+    opacity: 1
+    transform: scale(1)
+
+@keyframes slideInFromRight
+  from
+    opacity: .6
+    transform: translateX(60px)
+  to
+    opacity: 1
+    transform: translateX(0)
+
+@keyframes slideInFromLeft
+  from
+    opacity: .6
+    transform: translateX(-60px)
+  to
+    opacity: 1
+    transform: translateX(0)
+
+@keyframes swipeFade
+  0%
+    opacity: 0
+  15%
+    opacity: 1
+  80%
+    opacity: 1
+  100%
+    opacity: 0
+
+@keyframes swipeIn
+  from
+    opacity: 0
+    transform: translateY(-10px)
+  to
+    opacity: 1
+    transform: translateY(0)
+
+@keyframes swipeOut
+  from
+    opacity: 1
+    transform: translateY(0)
+  to
+    opacity: 0
+    transform: translateY(10px)
+
+// RESPONSIVIDADE para tablets e celulares
 @media (max-width: 800px)
   .festa
     margin-left: 0       // Remove margem lateral
+    
     img
-      width: 100%        // Imagens ocupam largura total
+      width: 100%        // Imagens ocupam 100% da largura do container
+  
+  .imagem-modal
+    flex-direction: column // Organiza conteúdo em coluna
+
+  .nav
+    opacity: 0 // Oculta botões de navegação em mobile
+    pointer-events: none // Desabilita interação
+
+    &.prev
+      transform: translateX(-20px)
+
+    &.next
+      transform: translateX(20px)
+
+  .swipe-hint
+    display: block // Exibe apenas em mobile
+    position: absolute
+    top: 100%
+    margin-top: 76px
+    width: 120px
+    z-index: 10001 // Acima de outros elementos
+    pointer-events: none // Não interfere com interações
+    opacity: 0
+    transform: translateY(10px)
+
+    &.ativa
+      // Animação combinada: entrada seguida de saída após 3.1s
+      animation: swipeIn .4s ease forwards, swipeOut .4s ease forwards 3.1s

@@ -1,4 +1,8 @@
-# Logs
+# Arquivo de configuração do Git para especificar quais arquivos/diretórios
+# devem ser ignorados pelo controle de versão
+# Local: .gitignore (na raiz do projeto)
+
+# Logs de aplicação e ferramentas de desenvolvimento
 logs
 *.log
 npm-debug.log*
@@ -7,12 +11,13 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependências e builds
 node_modules
 dist
 dist-ssr
 *.local
 
-# Editor directories and files
+# Arquivos e diretórios de editores/IDEs
 .vscode/*
 !.vscode/extensions.json
 .idea

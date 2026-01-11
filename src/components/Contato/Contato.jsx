@@ -1,45 +1,55 @@
-// src/components/Contato/Contato.jsx
+// Componente React para a seção de Contato com formulário interativo
+// Local: src/components/Contato/Contato.jsx
 
-import React, { useEffect, useRef } from 'react' // ← adicionados useEffect e useRef para escutar foco/cli­que fora
-import './Contato.sass'
-import { useFormulario } from '../../hooks/useFormulario'
+import React, { useEffect, useRef } from 'react' // ← useEffect e useRef para gerenciar efeitos e referências DOM
+import './Contato.sass' // Estilos específicos do componente
+import { useFormulario } from '../../hooks/useFormulario' // ← Hook customizado para lógica do formulário
 
 export const Contato = () => {
-  const formRef = useRef() // ← referência ao form pra detectar interações externas
+  const formRef = useRef() // ← Referência ao formulário para detectar interações externas
   const {
     nome, setNome,
     email, setEmail,
     mensagem, setMensagem,
     erros, enviado, validado,
-    clearAllErrors,     // ← limpa todos os erros de uma vez (usado no effect)
-    clearSuccess,       // ← limpa somente a mensagem de sucesso
-    validarCampo,       // ← dispara validação para um campo específico
-    handleChange,       // ← handler genérico de onChange
-    handleSubmit        // ← handler de onSubmit
+    clearAllErrors,     // ← Limpa todos os erros de uma vez
+    clearSuccess,       // ← Limpa somente a mensagem de sucesso
+    validarCampo,       // ← Dispara validação para um campo específico
+    handleChange,       // ← Handler genérico de onChange (atualiza e valida)
+    handleSubmit        // ← Handler de onSubmit
   } = useFormulario()
 
+  // Efeito para limpar erros/sucesso quando usuário interage fora do formulário
   useEffect(() => {
     const handleExternalInteraction = (e) => {
       const formInputs = formRef.current?.querySelectorAll('input, textarea') || []
       const target = e.target
-      const isSubmitButton = target.tagName === 'BUTTON' && target.type === 'submit'
   
       // Verifica se clicou/focou FORA dos inputs OU no botão Enviar
       const isOutside = Array.from(formInputs).every(input =>
         !input.contains(target) && input !== target
       )
+
+      const isSubmitButton =  target.tagName === 'BUTTON' && target.type === 'submit'
   
       if (isOutside && !isSubmitButton) { // ← Mantém limpeza fora do form mas preserva botão
-        clearAllErrors()  // ← limpa todos os erros ao sair pelo tab/clique/button
-        clearSuccess()    // ← também limpa qualquer sucesso pendente
+        clearAllErrors()  // ← Limpa todos os erros ao sair pelo tab/clique/button
+        clearSuccess()    // ← Também limpa qualquer sucesso pendente
       }
     }
   
-    document.addEventListener('mousedown', handleExternalInteraction)
-    document.addEventListener('focusin', handleExternalInteraction)
+    const handleTabKey = (e) => {
+      if (e.key === 'Tab') {
+        clearAllErrors()
+        clearSuccess()
+      }
+    }
+
+      document.addEventListener('mousedown', handleExternalInteraction)
+      document.addEventListener('keydown', handleTabKey)
     return () => {
       document.removeEventListener('mousedown', handleExternalInteraction)
-      document.removeEventListener('focusin', handleExternalInteraction)
+      document.removeEventListener('keydown', handleTabKey)
     }
   }, [clearAllErrors, clearSuccess])
 
@@ -54,13 +64,12 @@ export const Contato = () => {
             type="text"
             placeholder="Nome"
             value={nome}
-            onChange={handleChange('nome', setNome)}      // ← atualiza e valida no primeiro caractere
-            onFocus={() => { clearSuccess(); validarCampo('nome') }} // ← limpa sucesso e mostra erro
-            onBlur={() => validarCampo('nome')}           // ← valida ao sair do campo
-            onKeyDown={e => e.key === 'Enter' && e.preventDefault()}   // ← bloqueia Enter aqui
+            onChange={handleChange('nome', setNome)}      // ← Atualiza estado e valida no primeiro caractere
+            onFocus={() => { clearSuccess(); validarCampo('nome') }} // ← Limpa sucesso e valida ao focar
+            onKeyDown={e => e.key === 'Enter' && e.preventDefault()}   // ← Bloqueia Enter para não submeter acidentalmente
             autoComplete="off"
           />
-          {validado.nome && <span className="check-icon" />} {/* ← ícone só aparece se validado*/}
+          {validado.nome && <span className="check-icon" />} {/* ← Ícone de check só aparece se validado */}
         </div>
         <div className="erro">{erros.nome || ''}</div>
 
@@ -70,10 +79,9 @@ export const Contato = () => {
             type="text"
             placeholder="E-mail"
             value={email}
-            onChange={handleChange('email', setEmail)}    // ← atualiza e só valida após regex
+            onChange={handleChange('email', setEmail)}    // ← Atualiza estado e valida formato com regex
             onFocus={() => { clearSuccess(); validarCampo('email') }}
-            onBlur={() => validarCampo('email')}
-            onKeyDown={e => e.key === 'Enter' && e.preventDefault()}   // ← bloqueia Enter aqui
+            onKeyDown={e => e.key === 'Enter' && e.preventDefault()}   // ← Bloqueia Enter aqui
             autoComplete="off"
           />
           {validado.email && <span className="check-icon" />}
@@ -86,13 +94,13 @@ export const Contato = () => {
             placeholder="Escreva sua mensagem..."
             value={mensagem}
             rows="6"
-            onChange={handleChange('mensagem', setMensagem)} // ← atualiza e valida no primeiro caractere
+            onChange={handleChange('mensagem', setMensagem)} // ← Atualiza e valida no primeiro caractere
             onFocus={() => { clearSuccess(); validarCampo('mensagem') }}
-            onBlur={() => validarCampo('mensagem')}          // ← error some ao tab→botão tratado pelo effect
+            onBlur={() => {}}  // ← Erro some ao tab→botão tratado pelo effect externo
             onKeyDown={e => {
               if (e.key === 'Enter') {
-                e.preventDefault()                   // bloqueia o submit
-                setMensagem(prev => prev + '\n')     // adiciona nova linha
+                e.preventDefault()                   // Bloqueia submit por Enter
+                setMensagem(prev => prev + '\n')     // Adiciona nova linha ao invés de submeter
               }
             }}
             autoComplete="off"
@@ -101,7 +109,7 @@ export const Contato = () => {
         </div>
         <div className="erro">{erros.mensagem || ''}</div>
 
-        {/* Botão de envio */}
+        {/* Botão de envio com suporte a teclado */}
         <button
           type="submit"
           onKeyDown={(e) => {
@@ -110,16 +118,16 @@ export const Contato = () => {
                 ...e,
                 preventDefault: () => e.preventDefault(),
                 target: e.currentTarget,
-                type: 'submit' // ← Garante o mesmo tratamento que o submit do form          
+                type: 'submit' // ← Garante o mesmo tratamento que submit do form          
               }
-              handleSubmit(fakeEvent) // ← Simula evento nativo do form
+              handleSubmit(fakeEvent) // ← Simula evento nativo do form para trigger do handleSubmit
             }
           }}
         >
           Enviar
         </button>
 
-        {/* Mensagem de sucesso */}
+        {/* Mensagem de sucesso condicional */}
         <div className="sucesso">
           {enviado && <p className="correto">{enviado}</p>}
         </div>
